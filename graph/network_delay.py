@@ -1,7 +1,10 @@
 """
 https://leetcode.com/problems/network-delay-time/description/
 """
-def networkDelayTime( times, n, k):
+import heapq
+
+
+def network_delay_time(times, n, k):
     """
     :type times: List[List[int]]
     :type n: int
@@ -10,7 +13,7 @@ def networkDelayTime( times, n, k):
     """
     """
     """
-    distances = {i+1: float('inf') for i in range(n)}
+    distances = {i + 1: float('inf') for i in range(n)}
 
     distances[k] = 0
 
@@ -21,8 +24,8 @@ def networkDelayTime( times, n, k):
             graph[node][t] = w
         else:
             graph[node] = {t: w}
-    
-    visit = [(k,0)]
+
+    visit = [(k, 0)]
     while visit:
         vertex, dist = heapq.heappop(visit)
         if dist > distances[vertex]:
@@ -30,7 +33,7 @@ def networkDelayTime( times, n, k):
         if vertex in graph:
             for target, weight in graph[vertex].items():
                 new_distance = weight + dist
-                if  new_distance <  distances[target]:
+                if new_distance < distances[target]:
                     distances[target] = new_distance
                     heapq.heappush(visit, (target, new_distance))
 

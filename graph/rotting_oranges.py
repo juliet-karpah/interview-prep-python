@@ -1,7 +1,9 @@
 """
 https://leetcode.com/problems/rotting-oranges/
 """
-def orangesRotting(self, grid):
+
+
+def oranges_rotting(grid):
     """
     :type grid: List[List[int]]
     :rtype: int
@@ -11,7 +13,7 @@ def orangesRotting(self, grid):
     visit its children
     if it is not rotten, increase fresh oranges list
     """
-    directions = [[-1,0], [0,1], [1,0], [0,-1]]
+    directions = [[-1, 0], [0, 1], [1, 0], [0, -1]]
     queue = []
     rows, cols = len(grid), len(grid[0])
     f_or = 0
@@ -19,7 +21,7 @@ def orangesRotting(self, grid):
     for i in range(rows):
         for j in range(cols):
             if grid[i][j] == 2:
-                queue.append([i,j])
+                queue.append([i, j])
             elif grid[i][j] == 1:
                 f_or += 1
     while queue:
@@ -31,9 +33,9 @@ def orangesRotting(self, grid):
             i = cd[0]
             j = cd[1]
             for d in directions:
-                x, y = i+d[0], j+d[1]
+                x, y = i + d[0], j + d[1]
                 if 0 <= x < rows and 0 <= y < cols and grid[x][y] == 1:
                     grid[x][y] = 2
-                    queue.append([x,y])
+                    queue.append([x, y])
                     f_or -= 1
     return m if f_or == 0 else -1
