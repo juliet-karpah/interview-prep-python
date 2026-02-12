@@ -34,7 +34,7 @@ def climbing_stairs(n):
     optimal substructure: 
     if step == 1, remaining steps n-1
     if step == 2, remaining steps n-2
-    
+
     recurrence:
     base case: 
     if n = 0, ways[0] = 1
@@ -55,8 +55,28 @@ def climbing_stairs(n):
         else:
             T[i] = T[i-2] + T[i-1]
     return T[n]
+
+# Time O(n)
+# Space O(n)
+
+def climbing_stairs_optimized(n):
+    if n <= 1:
+        return 1
     
+    if n == 2:
+        return 2
+    
+    step_one = 1
+    step_two = 2
 
+    for i in range(3, n+1):
+        current_staircase = step_one + step_two
+        step_one = step_two
+        step_two = current_staircase
 
+    return current_staircase
+
+# Time O(n)
+# Space O(1)
 
 
