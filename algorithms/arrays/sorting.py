@@ -1,4 +1,4 @@
-from utils import merge
+from algorithms.utils import merge
 
 
 def insertion_sort(a):
