@@ -1,9 +1,13 @@
 """
 https://leetcode.com/problems/house-robber/description/
 
-You are a professional robber planning to rob houses along a street. Each house has a certain amount of money stashed, the only constraint stopping you from robbing each of them is that adjacent houses have security systems connected and it will automatically contact the police if two adjacent houses were broken into on the same night.
+You are a professional robber planning to rob houses along a street. 
+Each house has a certain amount of money stashed, 
+the only constraint stopping you from robbing each of them is that adjacent houses have security systems connected 
+and it will automatically contact the police if two adjacent houses were broken into on the same night.
 
-Given an integer array nums representing the amount of money of each house, return the maximum amount of money you can rob tonight without alerting the police.
+Given an integer array nums representing the amount of money of each house, 
+return the maximum amount of money you can rob tonight without alerting the police.
 
  
 
@@ -21,3 +25,30 @@ Explanation: Rob house 1 (money = 2), rob house 3 (money = 9) and rob house 5 (m
 Total amount you can rob = 2 + 9 + 1 = 12.
 
 """
+
+def house_robber(nums):
+    """
+    pseudocode:
+    state i: maximum money that I can rob from houses [0..i]
+    transition: at house i, I can skip robbing it dp[i-1] or I can rob it dp[i-2] + nums[i]
+    """
+    if not nums:
+        return 0
+    
+    if len(nums) == 1:
+        return nums[0]
+
+    n = len(nums)
+
+    T = [0] * (n)
+
+    T[0] = nums[0]
+    T[1] = max(nums[0], nums[1])
+
+    for i in range(2, n):
+        T[i] = max(T[i-1], T[i-2] + nums[i])
+
+    return T[-1]
+
+# Time O(n)
+# Space O(n)
