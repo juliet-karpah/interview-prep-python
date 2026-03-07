@@ -57,9 +57,34 @@ Output: 0
 Explanation:
 
 "06" cannot be mapped to "F" because of the leading zero ("6" is different from "06"). In this case, the string is not a valid encoding, so return 0.
-
- 
-
-
-
 """
+
+def numDecodings(self, s):
+    """
+    :type s: str
+    :rtype: int
+    """
+    """
+    state: number of ways to decode at s[i]
+    transition: at step i, the code could be i or i+1 unless i starts with zero
+    dp[i] = number of ways to decode the substring ending at index i
+    
+    """
+    if s[0] == "0":
+        return 0
+
+    n = len(s)
+    T = [0]* (n+1)
+    T[0] = 1
+    T[1] = 1
+    for i in range(2, n+1):
+        x = int(s[i-1])
+        y = int(s[i-2] + s[i-1])
+        single = True if 1 <= x <= 9 else False
+        double = True if 10 <= y <= 26 else False
+        if single:
+            T[i] += T[i-1]
+        if double:
+            T[i] += T[i-2]
+
+    return T[-1]
