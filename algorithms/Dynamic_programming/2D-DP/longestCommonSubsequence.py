@@ -26,4 +26,17 @@ Explanation: There is no such common subsequence, so the result is 0.
 """
 
 def lcm(text1, text2):
-    pass
+    """
+
+    state: at i,j what is the longest common subsequence between textA and textB to that point
+    dp[i][j] = LCS(text1[0:i], text2[0:j])
+    """
+    d = [[0]*(len(text1)+1) for i in range(len(text2)+1)]
+
+    for i in range(1, len(text2)+1):
+        for j in range(1, len(text1)+1):
+            if text2[i-1] == text1[j-1]:
+                d[i][j] = d[i-1][j-1] + 1
+            else:
+                d[i][j] = max(d[i-1][j], d[i][j-1])
+    return d[-1][-1]
